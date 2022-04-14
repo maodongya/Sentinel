@@ -1,5 +1,7 @@
 package com.alibaba.csp.sentinel.dashboard.datasource.entity.jpa;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -10,6 +12,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "sentinel_metric")
+@Data
 public class MetricPO implements Serializable {
 
     private static final long serialVersionUID = 7200023615444172715L;
