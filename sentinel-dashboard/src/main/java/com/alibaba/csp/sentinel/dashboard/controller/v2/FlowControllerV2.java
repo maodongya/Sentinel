@@ -21,10 +21,10 @@ import java.util.List;
 import com.alibaba.csp.sentinel.dashboard.auth.AuthAction;
 import com.alibaba.csp.sentinel.dashboard.auth.AuthService;
 import com.alibaba.csp.sentinel.dashboard.auth.AuthService.PrivilegeType;
+import com.alibaba.csp.sentinel.dashboard.repository.jpa.JpaRuleRepository;
 import com.alibaba.csp.sentinel.util.StringUtil;
 
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.FlowRuleEntity;
-import com.alibaba.csp.sentinel.dashboard.repository.rule.InMemoryRuleRepositoryAdapter;
 import com.alibaba.csp.sentinel.dashboard.rule.DynamicRuleProvider;
 import com.alibaba.csp.sentinel.dashboard.rule.DynamicRulePublisher;
 import com.alibaba.csp.sentinel.dashboard.domain.Result;
@@ -54,9 +54,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class FlowControllerV2 {
 
     private final Logger logger = LoggerFactory.getLogger(FlowControllerV2.class);
-
+    @Qualifier("japFlowRuleRepository")
     @Autowired
-    private InMemoryRuleRepositoryAdapter<FlowRuleEntity> repository;
+    private JpaRuleRepository<FlowRuleEntity> repository;
 
     @Autowired
     @Qualifier("flowRuleDefaultProvider")
