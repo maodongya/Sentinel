@@ -37,4 +37,8 @@ public interface RuleEntity {
     Date getGmtCreate();
     
     Rule toRule();
+
+    default String getResource() {
+        return null;
+    }
 }

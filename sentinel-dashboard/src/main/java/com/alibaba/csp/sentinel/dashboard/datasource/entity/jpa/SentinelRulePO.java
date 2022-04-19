@@ -1,27 +1,25 @@
 package com.alibaba.csp.sentinel.dashboard.datasource.entity.jpa;
 
-import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.RuleEntity;
 
-import com.vladmihalcea.hibernate.type.json.JsonType;
+import com.alibaba.csp.sentinel.dashboard.datasource.entity.jpa.typedescriptor.ObjectValuePo;
+import com.alibaba.csp.sentinel.dashboard.datasource.entity.jpa.typedescriptor.ObjectValuePoStringType;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
-
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "sentinel_rule")
 @Data
-@TypeDefs({
+@TypeDefs(value = {
         @TypeDef(
-                name = "rule-json",
-                typeClass = JsonType.class,
-                defaultForType = RuleEntity.class
+                name = "rule-entity",
+                typeClass = ObjectValuePoStringType.class
         )
 })
-public class FlowRulePO<T>{
+public class SentinelRulePO{
     /**id，主键*/
     @Id
     @GeneratedValue
@@ -33,7 +31,10 @@ public class FlowRulePO<T>{
     /**修改时间*/
     @Column(name = "gmt_modified")
     private Date gmtModified;
+
     /**应用名称*/
+    @Column(name = "rule_type")
+    private String ruleType;
     @Column(name = "app")
     private String app;
     @Column(name = "ip")
@@ -45,6 +46,6 @@ public class FlowRulePO<T>{
     private String resource;
 
     @Column(name = "rule")
-    @Type(type = "rule-json")
-    private T rule;
+    @Type(type = "rule-entity")
+    private ObjectValuePo rule;
 }

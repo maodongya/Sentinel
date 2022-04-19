@@ -21,6 +21,7 @@ CREATE TABLE `sentinel_rule`  (
                                     `id` int NOT NULL AUTO_INCREMENT COMMENT 'id，主键',
                                     `gmt_create` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
                                     `gmt_modified` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+                                    `rule_type` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '规则类型',
                                     `app` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '应用名称',
                                     `ip` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'ip',
                                     `port` int NOT NULL COMMENT 'port',

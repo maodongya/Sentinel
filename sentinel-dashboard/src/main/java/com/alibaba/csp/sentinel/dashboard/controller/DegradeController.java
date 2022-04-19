@@ -33,6 +33,7 @@ import com.alibaba.csp.sentinel.dashboard.domain.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,7 +54,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DegradeController {
 
     private final Logger logger = LoggerFactory.getLogger(DegradeController.class);
-
+    @Qualifier("jpaDegradeRuleRepository")
     @Autowired
     private RuleRepository<DegradeRuleEntity, Long> repository;
     @Autowired
@@ -73,8 +74,13 @@ public class DegradeController {
         }
         try {
             List<DegradeRuleEntity> rules = sentinelApiClient.fetchDegradeRuleOfMachine(app, ip, port);
-            rules = repository.saveAll(rules);
-            return Result.ofSuccess(rules);
+            repository.saveAll(rules);
+            MachineInfo machineInfo=new MachineInfo();
+            machineInfo.setApp(app);
+            machineInfo.setIp(ip);
+            machineInfo.setPort(port);
+            List<DegradeRuleEntity> allRule=repository.findAllByMachine(machineInfo);
+            return Result.ofSuccess(allRule);
         } catch (Throwable throwable) {
             logger.error("queryApps error:", throwable);
             return Result.ofThrowable(-1, throwable);
