@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository("japFlowRuleRepository")
-public class JapFlowRuleRepository extends JpaRuleRepository<FlowRuleEntity>{
+public class JpaFlowRuleRepository extends JpaRuleRepository<FlowRuleEntity>{
     public String getRuleType(){
         return FlowRuleEntity.class.getSimpleName();
     }
