@@ -42,7 +42,7 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    @SentinelResource(value = "helloAnother", defaultFallback = "defaultFallback",
+    @SentinelResource(value = "hello", defaultFallback = "defaultFallback",
         exceptionsToIgnore = {IllegalStateException.class})
     public String helloAnother(String name) {
         if (name == null || "bad".equals(name)) {
